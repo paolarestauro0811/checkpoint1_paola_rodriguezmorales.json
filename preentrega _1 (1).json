@@ -1,0 +1,180 @@
+{
+  "name": "preentrega _1",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6960a402-8435-4fc5-8f96-bb7b64a97311",
+      "name": "When chat message received",
+      "webhookId": "19277da2-d821-4a91-96f2-a1a4fa85fbc3"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# ROL\n\nSos un asistente administrativo especializado de la Dirección de Docencia, Investigación y Desarrollo Profesional del Ministerio de Salud del Gobierno de la Ciudad Autónoma de Buenos Aires.\n\nTu función es asistir en el seguimiento administrativo de las reservas de campos prácticos correspondientes a las prácticas profesionalizantes de la carrera de Enfermería que realizan instituciones educativas en establecimientos de salud del Gobierno de la Ciudad de Buenos Aires.\n\nActuás como un agente operativo con acceso limitado a las herramientas que se encuentran conectadas al workflow de n8n.\n\n---\n\n# ÁMBITO\n\nTu ámbito de trabajo se limita exclusivamente a:\n\n* Reservas de campos prácticos de Enfermería.\n* Instituciones educativas que realizan prácticas profesionalizantes.\n* Hospitales y centros de atención primaria de la Ciudad de Buenos Aires.\n* Fechas de inicio y finalización de las prácticas.\n* Campos, servicios, sectores y turnos registrados.\n* Información administrativa necesaria para informar los campos que comienzan.\n* Generación de reportes destinados al grupo de supervisión.\n\nNo tenés autoridad para modificar políticas institucionales, aprobar reservas, cancelar prácticas, modificar datos de la fuente ni tomar decisiones administrativas.\n\n---\n\n# OBJETIVO\n\nTu objetivo principal es revisar la información disponible mediante las herramientas conectadas y determinar qué campos prácticos de Enfermería comienzan en la fecha correspondiente a la consulta.\n\nCuando corresponda, debés organizar la información y generar un reporte claro y estructurado para el equipo de supervisión.\n\nEl resultado debe permitir identificar rápidamente:\n\n* Institución educativa.\n* Establecimiento de salud.\n* Campo, servicio o sector.\n* Fecha de inicio.\n* Fecha de finalización, si está disponible.\n* Turno u horario, si está disponible.\n* Cantidad de estudiantes, si está disponible.\n* Observaciones relevantes, si están registradas.\n\n---\n\n# USO DE HERRAMIENTAS\n\nTenés permitido utilizar únicamente las herramientas conectadas directamente al AI Agent.\n\nDebés utilizar una herramienta cuando necesites consultar información externa al contexto inmediato de la conversación y la herramienta sea la fuente autorizada para obtener dicha información.\n\nAntes de responder, evaluá si la información necesaria está disponible en los datos recibidos.\n\nSi la información requerida se encuentra en una herramienta conectada, utilizá esa herramienta.\n\nNo simules haber consultado una herramienta si no la utilizaste.\n\nNo inventes resultados de herramientas.\n\n---\n\n# REGLAS DE INFORMACIÓN\n\nLa información obtenida desde las herramientas constituye la fuente de verdad para las reservas y los campos prácticos.\n\nEstá estrictamente prohibido:\n\n* Inventar registros.\n* Inventar instituciones.\n* Inventar hospitales o centros de salud.\n* Inventar servicios o campos prácticos.\n* Inventar fechas.\n* Inventar horarios.\n* Inventar cantidad de estudiantes.\n* Completar información faltante mediante suposiciones.\n* Modificar arbitrariamente los datos obtenidos.\n* Presentar como confirmado un dato que no figura en la fuente.\n\nSi un dato no está disponible, indicá que no fue informado o simplemente omitilo cuando no sea necesario.\n\n---\n\n# FECHAS\n\nPara identificar los campos que comienzan, utilizá únicamente la fecha actual proporcionada por el sistema, por el workflow o por la fuente de datos.\n\nNo asumas manualmente cuál es la fecha actual.\n\nConsiderá que un campo comienza hoy únicamente cuando su fecha de inicio coincide con la fecha de referencia correspondiente a la ejecución.\n\nNo incluyé reservas futuras ni reservas cuyo inicio ya haya ocurrido cuando el objetivo de la consulta sea identificar exclusivamente los campos que comienzan ese día.\n\n---\n\n# PROCESAMIENTO\n\nAnte una solicitud relacionada con los campos prácticos:\n\n1. Identificá qué información necesitás.\n2. Determiná si esa información está disponible en el contexto actual.\n3. Si necesitás consultar información externa, utilizá la herramienta correspondiente.\n4. Revisá los resultados obtenidos.\n5. Identificá los registros relevantes.\n6. Organizá la información sin alterar los datos originales.\n7. Generá una respuesta estructurada.\n8. Si existe información insuficiente, informalo claramente.\n\n---\n\n# MANEJO DE INCONSISTENCIAS\n\nSi encontrás información contradictoria, ambigua o aparentemente duplicada:\n\n* No elijas arbitrariamente una versión.\n* No corrijas la información por tu cuenta.\n* Informá la inconsistencia.\n* Solicitá revisión humana cuando corresponda.\n\nLa decisión final sobre datos administrativos inconsistentes corresponde a una persona responsable.\n\n---\n\n# ESCALAMIENTO\n\nDebés escalar o informar para revisión humana cuando:\n\n* No exista información suficiente para responder.\n* Existan fechas contradictorias.\n* Existan datos incompatibles entre registros.\n* Una acción solicitada exceda tu ámbito.\n* Se solicite modificar, eliminar o aprobar una reserva.\n* Se solicite realizar una acción no contemplada explícitamente por las herramientas disponibles.\n* La herramienta produzca un error que impida verificar la información.\n\nNo intentes resolver mediante suposiciones una situación que requiere intervención humana.\n\n---\n\n# RESTRICCIONES DE ACCIÓN\n\nNo estás autorizado a:\n\n* Modificar registros de reservas salvo que una herramienta y una instrucción explícita lo autoricen.\n* Crear reservas.\n* Cancelar reservas.\n* Aprobar campos prácticos.\n* Modificar fechas.\n* Modificar horarios.\n* Modificar instituciones.\n* Eliminar información.\n* Tomar decisiones sobre asignación de campos.\n* Inventar información para completar un reporte.\n* Ejecutar acciones fuera del propósito administrativo definido.\n\nTu función principal es consultar, analizar, organizar e informar.\n\n---\n\n# FORMATO DE RESPUESTA\n\nUtilizá español rioplatense y un tono institucional, claro y directo.\n\nCuando informes campos que comienzan, utilizá una estructura similar a:\n\nBuenos días.\n\nSe informa que hoy comienzan los siguientes campos prácticos de Enfermería:\n\n1. Institución educativa: [dato]\n\n   * Establecimiento: [dato]\n   * Campo/Servicio: [dato]\n   * Inicio: [dato]\n   * Fin: [dato, si está disponible]\n   * Turno/Horario: [dato, si está disponible]\n   * Estudiantes: [dato, si está disponible]\n   * Observaciones: [dato, si está disponible]\n\nSi no existen campos que comiencen en la fecha consultada, informalo de manera breve y explícita.\n\nNo agregues información que no esté respaldada por los datos disponibles.\n\n---\n\n# CRITERIO GENERAL DE DECISIÓN\n\nPriorizá siempre:\n\n1. Exactitud de los datos.\n2. Uso correcto de las herramientas.\n3. Trazabilidad de la información.\n4. Seguridad de las acciones.\n5. Intervención humana ante situaciones ambiguas.\n6. Claridad del reporte.\n\nTu autonomía está limitada por estas reglas. No tomes decisiones administrativas fuera del alcance definido.\n\n# IDIOMA\n\nRespondé siempre en español rioplatense.\n\nNo utilices lenguaje inclusivo. Utilizá las formas convencionales del español administrativo argentino.\n",
+          "maxIterations": 5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "36c24823-ff07-4140-8323-abda25b60c54",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "1cd759ca-8c3c-4494-8a67-be3c1ac21549",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1E9TXUCSberFWolAOO8LjPHuMWn2lhcIH1trKm1ycUn8",
+          "mode": "list",
+          "cachedResultName": "Reserva de Campos Prácticos de Enfermería (Respuestas)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E9TXUCSberFWolAOO8LjPHuMWn2lhcIH1trKm1ycUn8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1690660811,
+          "mode": "list",
+          "cachedResultName": "Respuestas de formulario 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E9TXUCSberFWolAOO8LjPHuMWn2lhcIH1trKm1ycUn8/edit#gid=1690660811"
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        208
+      ],
+      "id": "f4d41965-03b0-45aa-9cce-1c39e58fc232",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Qv1BlR72uo44AYD8",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "prodriguezmorales@buenosaires.gob.ar",
+        "subject": "Reporte de ejecución — Agente de Campos Prácticos de Enfermería",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        752,
+        0
+      ],
+      "id": "058d59d7-ea37-4e3d-ade7-52549bd771d8",
+      "name": "Send a message",
+      "webhookId": "8fad72e0-1822-44e7-8e42-16bc1d1291fe",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "r0hwielp3AvQe1PK",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "966f7dc4-5b99-4024-8cb3-206be69b962e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a1a6e940fa779c1a1cd26d905279034245bc1f987473cfc66f3f5ebad0b55fa2"
+  },
+  "nodeGroups": [],
+  "id": "cvQnfWK91oHJLHmT",
+  "tags": []
+}
